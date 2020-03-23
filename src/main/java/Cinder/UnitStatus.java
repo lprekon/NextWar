@@ -4,7 +4,7 @@ public enum UnitStatus
 
 	private String name;
 
-	public UnitStatus(String name)
+	UnitStatus(String name)
 	{
 		this.name = name;
 	}
