@@ -35,7 +35,7 @@ public class Unit
 		canTakeLoss = false;
 	}
 
-	public Unit(String name, int attack, int defense, int movement, int efficiancy, double stackingPoints, int reducedAttack, int reducedDefense, int reduced_movement, int reducedEfficiancy, int reducedStackingPoints)
+	public Unit(String name, int attack, int defense, int movement, int efficiancy, double stackingPoints, int reducedAttack, int reducedDefense, int reducedMovement, int reducedEfficiancy, int reducedStackingPoints)
 	{
 		this.unitStatus = UnitStatus.HEALTHY;
 		this.name = name;
@@ -48,7 +48,7 @@ public class Unit
 		this.canTakeLoss = true;
 		this.reducedAttack = reducedAttack;
 		this.reducedDefense = reducedDefense;
-		this.reducedTotalMovement = reduced_movement;
+		this.reducedTotalMovement = reducedMovement;
 		this.reducedEfficiancy = reducedEfficiancy;
 		this.reducedStackingPoints = reducedStackingPoints;
 	}
