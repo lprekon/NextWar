@@ -60,4 +60,22 @@ class TestUnit {
     	largeUnit.takeStepLoss();
     	assertEquals(5, largeUnit.getAttack());
     }
+
+    @Test
+    void testGetDefense(){
+    	assertAll("Starting stats",
+    		()->assertEquals(2, smallUnit.getDefense()),
+    		()->assertEquals(10, largeUnit.getDefense()));
+    	largeUnit.takeStepLoss();
+    	assertEquals(6, largeUnit.getDefense());
+    }
+
+    @Test
+    void testGetTotalMovement(){
+    	assertAll("Starting stats",
+    		()->assertEquals(3, smallUnit.getTotalMovement()),
+    		()->assertEquals(11, largeUnit.getTotalMovement()));
+    	largeUnit.takeStepLoss();
+    	assertEquals(7, largeUnit.getTotalMovement());
+    }
 }
