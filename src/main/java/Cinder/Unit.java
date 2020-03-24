@@ -58,6 +58,11 @@ public class Unit
 		return this.name;
 	}
 
+	public UnitStatus getStatus()
+	{
+		return this.unitStatus;
+	}
+
 	public int getAttack()
 	{
 		return (this.unitStatus == UnitStatus.STEP_LOSS_TAKEN)?this.reducedAttack:this.attack;
