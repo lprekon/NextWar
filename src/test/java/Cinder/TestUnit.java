@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -29,5 +30,12 @@ class TestUnit {
     	assertEquals(UnitStatus.UNDEFINED, emptyUnit.getStatus());
     	assertEquals(UnitStatus.HEALTHY, smallUnit.getStatus());
     	assertEquals(UnitStatus.HEALTHY, largeUnit.getStatus());
+    }
+
+    @Test
+    void preventInvalidStepLosss(){
+    	assertAll("Can't take loss", 
+    		()->assertThrows(IllegalStateException.class, ()->emptyUnit.takeStepLoss()),
+    		()->assertThrows(IllegalStateException.class, ()->smallUnit.takeStepLoss()));
     }
 }
