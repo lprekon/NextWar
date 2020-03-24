@@ -78,4 +78,13 @@ class TestUnit {
     	largeUnit.takeStepLoss();
     	assertEquals(7, largeUnit.getTotalMovement());
     }
+
+    @Test
+    void testGetEfficiancy(){
+    	assertAll("Starting stats",
+    		()->assertEquals(4, smallUnit.getEfficiancy()),
+    		()->assertEquals(12, largeUnit.getEfficiancy()));
+    	largeUnit.takeStepLoss();
+    	assertEquals(8, largeUnit.getEfficiancy());
+    }
 }
