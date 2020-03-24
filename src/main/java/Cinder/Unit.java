@@ -94,7 +94,7 @@ public class Unit
 
 	public void subtractMovement(int spaces)
 	{
-		if((this.unitStatus != UnitStatus.HEALTHY) || (this.unitStatus != UnitStatus.STEP_LOSS_TAKEN))
+		if((this.unitStatus != UnitStatus.HEALTHY) && (this.unitStatus != UnitStatus.STEP_LOSS_TAKEN))
 		{
 			throw new UnsupportedOperationException("UNMOVEABLE - " + this.toString());
 		}
@@ -102,6 +102,7 @@ public class Unit
 		{
 			throw new IllegalArgumentException("OVERMOVE - Attempt to move " + spaces + " spaces by " + this.toString());
 		}
+		this.remainingMovement -= spaces;
 	}
 
 	public void resetMovement()
