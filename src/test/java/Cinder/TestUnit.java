@@ -125,4 +125,15 @@ class TestUnit {
     	assertDoesNotThrow(()->largeUnit.subtractMovement(4), "Large unit third move");
     	assertEquals(0, largeUnit.getRemainingMovement());
     }
+
+    @Test
+    void movementReductionAfterStepLoss(){
+    	assertAll("Starting stats",
+    		()->assertEquals(11, largeUnit.getTotalMovement()),
+    		()->assertEquals(11, largeUnit.getRemainingMovement()));
+    	largeUnit.takeStepLoss();
+    	assertEquals(7, largeUnit.getTotalMovement());
+    	largeUnit.resetMovement();
+    	assertEquals(7, largeUnit.getRemainingMovement());
+    }
 }
