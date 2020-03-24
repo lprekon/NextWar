@@ -135,6 +135,7 @@ class TestUnit {
     	assertEquals(7, largeUnit.getTotalMovement());
     	largeUnit.resetMovement();
     	assertEquals(7, largeUnit.getRemainingMovement());
+    	assertDoesNotThrow(()->largeUnit.subtractMovement(7));
     }
 
     @Test
@@ -142,4 +143,5 @@ class TestUnit {
     	assertEquals(UnitStatus.UNDEFINED, emptyUnit.getStatus());
     	assertThrows(UnsupportedOperationException.class, ()->emptyUnit.subtractMovement(0));
     }
+
 }
