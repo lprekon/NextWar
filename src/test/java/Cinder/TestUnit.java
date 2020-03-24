@@ -144,4 +144,17 @@ class TestUnit {
     	assertThrows(UnsupportedOperationException.class, ()->emptyUnit.subtractMovement(0));
     }
 
+    @Test 
+    void moveDeadUnit(){
+    	assertAll("Starting stats",
+    		()->assertEquals(3, smallUnit.getTotalMovement()),
+    		()->assertEquals(11, largeUnit.getTotalMovement()),
+    		()->assertEquals(3, smallUnit.getRemainingMovement()),
+    		()->assertEquals(11, largeUnit.getRemainingMovement()));
+		smallUnit.takeStepLoss();
+		assertThrows(UnsupportedOperationException.class, ()->smallUnit.subtractMovement(0));
+		largeUnit.takeStepLoss();
+		largeUnit.takeStepLoss();
+		assertThrows(UnsupportedOperationException.class, ()->largeUnit.subtractMovement(0));
+    }
 }
