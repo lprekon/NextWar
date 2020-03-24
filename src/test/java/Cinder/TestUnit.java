@@ -96,4 +96,13 @@ class TestUnit {
     	largeUnit.takeStepLoss();
     	assertEquals(2, largeUnit.getStackingPoints());
     }
+
+    @Test
+    void testGetRemainingMovement(){
+    	assertAll("Starting stats",
+    		()->assertEquals(3, smallUnit.getTotalMovement()),
+    		()->assertEquals(11, largeUnit.getTotalMovement()));
+    	assertEquals(3, smallUnit.getRemainingMovement());
+    	assertEquals(11, largeUnit.getRemainingMovement());
+    }
 }
