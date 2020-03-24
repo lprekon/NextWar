@@ -87,4 +87,13 @@ class TestUnit {
     	largeUnit.takeStepLoss();
     	assertEquals(8, largeUnit.getEfficiancy());
     }
+
+    @Test
+    void testGetStackingPoints(){
+    	assertAll("Starting stats",
+    		()->assertEquals(.5, smallUnit.getStackingPoints()),
+    		()->assertEquals(4, largeUnit.getStackingPoints()));
+    	largeUnit.takeStepLoss();
+    	assertEquals(2, largeUnit.getStackingPoints());
+    }
 }
