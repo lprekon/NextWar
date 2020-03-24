@@ -78,7 +78,7 @@ public class Unit
 		return (this.unitStatus == UnitStatus.STEP_LOSS_TAKEN)?this.reducedEfficiancy:this.efficiancy;
 	}
 
-	public int getStackingPoints()
+	public double getStackingPoints()
 	{
 		return (this.unitStatus == UnitStatus.STEP_LOSS_TAKEN)?this.reducedStackingPoints:this.stackingPoints;
 	}
