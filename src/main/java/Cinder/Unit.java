@@ -19,7 +19,7 @@ public class Unit
 	public Unit()
 	{
 		this.name = "Empty Unit";
-		this.unitStatus = UnitStatus.DEAD;
+		this.unitStatus = UnitStatus.UNDEFINED;
 	}
 
 	public Unit(String name, int attack, int defense, int movement, int efficiancy, double stackingPoints)
