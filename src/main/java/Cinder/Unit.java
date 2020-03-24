@@ -53,42 +53,42 @@ public class Unit
 		this.reducedStackingPoints = reducedStackingPoints;
 	}
 
-	public String get_name()
+	public String getName()
 	{
 		return this.name;
 	}
 
-	public int get_attack()
+	public int getAttack()
 	{
 		return (this.unitStatus == UnitStatus.STEP_LOSS_TAKEN)?this.reducedAttack:this.attack;
 	}
 
-	public int get_defense()
+	public int getDefense()
 	{
 		return (this.unitStatus == UnitStatus.STEP_LOSS_TAKEN)?this.reducedDefense:this.defense;
 	}
 
-	public int get_efficiancy()
+	public int getEfficiancy()
 	{
 		return (this.unitStatus == UnitStatus.STEP_LOSS_TAKEN)?this.reducedEfficiancy:this.efficiancy;
 	}
 
-	public int get_stackingPoints()
+	public int getStackingPoints()
 	{
 		return (this.unitStatus == UnitStatus.STEP_LOSS_TAKEN)?this.reducedStackingPoints:this.stackingPoints;
 	}
 
-	public int get_remainingMovement()
+	public int getRemainingMovement()
 	{
 		return this.remainingMovement;
 	}
 
-	public int get_totalMovement()
+	public int getTotalMovement()
 	{
 		return this.totalMovement;
 	}
 
-	public void subtract_movement(int spaces)
+	public void subtractMovement(int spaces)
 	{
 		if((this.unitStatus != UnitStatus.HEALTHY) || (this.unitStatus != UnitStatus.STEP_LOSS_TAKEN))
 		{
@@ -100,12 +100,12 @@ public class Unit
 		}
 	}
 
-	public void reset_movement()
+	public void resetMovement()
 	{
 		this.remainingMovement = this.totalMovement;
 	}
 
-	public void take_step_loss()
+	public void takeStepLoss()
 	{
 		if(!this.canTakeLoss || (this.unitStatus != UnitStatus.HEALTHY && this.unitStatus!= UnitStatus.STEP_LOSS_TAKEN))
 		{
