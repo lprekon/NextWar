@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -104,5 +105,24 @@ class TestUnit {
     		()->assertEquals(11, largeUnit.getTotalMovement()));
     	assertEquals(3, smallUnit.getRemainingMovement());
     	assertEquals(11, largeUnit.getRemainingMovement());
+    }
+
+    @Test
+    void simpleMovement(){
+    	assertAll("Starting stats",
+    		()->assertEquals(3, smallUnit.getTotalMovement()),
+    		()->assertEquals(11, largeUnit.getTotalMovement()),
+    		()->assertEquals(3, smallUnit.getRemainingMovement()),
+    		()->assertEquals(11, largeUnit.getRemainingMovement()));
+    	assertDoesNotThrow(()->smallUnit.subtractMovement(1), "Small unit first move");
+    	assertEquals(2, smallUnit.getRemainingMovement());
+    	assertDoesNotThrow(()->smallUnit.subtractMovement(2), "Small unit second move");
+    	assertEquals(0, smallUnit.getRemainingMovement());
+    	assertDoesNotThrow(()->largeUnit.subtractMovement(3), "Large unit first move");
+    	assertEquals(8, largeUnit.getRemainingMovement());
+    	assertDoesNotThrow(()->largeUnit.subtractMovement(4), "Large unit second move");
+    	assertEquals(4, largeUnit.getRemainingMovement());
+    	assertDoesNotThrow(()->largeUnit.subtractMovement(4), "Large unit third move");
+    	assertEquals(0, largeUnit.getRemainingMovement());
     }
 }
