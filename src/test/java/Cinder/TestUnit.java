@@ -34,8 +34,21 @@ class TestUnit {
 
     @Test
     void preventInvalidStepLosss(){
-    	assertAll("Can't take loss", 
-    		()->assertThrows(IllegalStateException.class, ()->emptyUnit.takeStepLoss()),
-    		()->assertThrows(IllegalStateException.class, ()->smallUnit.takeStepLoss()));
+    	assertThrows(IllegalStateException.class, ()->emptyUnit.takeStepLoss(), "Undefined units should not be able to take step losses");
+    	smallUnit.takeStepLoss();
+    	largeUnit.takeStepLoss();
+    	largeUnit.takeStepLoss();
+    	assertAll("Dead units cannot take step losses",
+    		()->assertThrows(IllegalStateException.class, ()->smallUnit.takeStepLoss(), "Dead small units should not be able to take step losses"),
+    		()->assertThrows(IllegalStateException.class, ()->largeUnit.takeStepLoss(), "Dead large units should not be able to take step losses"));
+    }
+
+    @Test
+    void updateStatusOnStepLoss(){
+    	assertEquals(UnitStatus.HEALTHY, largeUnit.getStatus());
+    	assertEquals(UnitStatus.STEP_LOSS_TAKEN, largeUnit.takeStepLoss());
+    	assertEquals(UnitStatus.DEAD, largeUnit.takeStepLoss());
+    	assertEquals(UnitStatus.HEALTHY, smallUnit.getStatus());
+    	assertEquals(UnitStatus.DEAD, smallUnit.takeStepLoss());
     }
 }
