@@ -6,7 +6,7 @@ public class Unit
 	private int defense;
 	private int efficiancy;
 	private double stackingPoints;
-	private boolean canTakeLoss;
+	private boolean hasReducedStep;
 	private UnitStatus unitStatus;
 	private int reducedTotalMovement;
 	private int reducedRemainingMovement;
@@ -32,7 +32,7 @@ public class Unit
 		this.remainingMovement = this.totalMovement;
 		this.efficiancy = efficiancy;
 		this.stackingPoints = stackingPoints;
-		canTakeLoss = false;
+		hasReducedStep = false;
 	}
 
 	public Unit(String name, int attack, int defense, int movement, int efficiancy, double stackingPoints, int reducedAttack, int reducedDefense, int reducedMovement, int reducedEfficiancy, double reducedStackingPoints)
@@ -45,7 +45,7 @@ public class Unit
 		this.remainingMovement = this.totalMovement;
 		this.efficiancy = efficiancy;
 		this.stackingPoints = stackingPoints;
-		this.canTakeLoss = true;
+		this.hasReducedStep = true;
 		this.reducedAttack = reducedAttack;
 		this.reducedDefense = reducedDefense;
 		this.reducedTotalMovement = reducedMovement;
@@ -110,14 +110,23 @@ public class Unit
 		this.remainingMovement = this.totalMovement;
 	}
 
-	public void takeStepLoss()
+	public UnitStatus takeStepLoss()
 	{
-		if(!this.canTakeLoss || (this.unitStatus != UnitStatus.HEALTHY && this.unitStatus!= UnitStatus.STEP_LOSS_TAKEN))
+		if(this.unitStatus != UnitStatus.HEALTHY && this.unitStatus!= UnitStatus.STEP_LOSS_TAKEN)
 		{
 			throw new IllegalStateException("Unit cannot take a step loss:\n" + this.toString());
 		}
 
-		this.unitStatus = (this.unitStatus == UnitStatus.HEALTHY)?UnitStatus.STEP_LOSS_TAKEN:UnitStatus.DEAD;
+		if(this.unitStatus == UnitStatus.HEALTHY && this.hasReducedStep)
+		{
+			this.unitStatus = UnitStatus.STEP_LOSS_TAKEN;
+		}
+		else
+		{
+			this.unitStatus = UnitStatus.DEAD;
+		}
+
+		return this.unitStatus;
 	}
 
 	public String toString()
