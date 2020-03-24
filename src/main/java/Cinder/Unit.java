@@ -9,7 +9,6 @@ public class Unit
 	private boolean hasReducedStep;
 	private UnitStatus unitStatus;
 	private int reducedTotalMovement;
-	private int reducedRemainingMovement;
 	private int reducedAttack;
 	private int reducedDefense;
 	private int reducedEfficiancy;
@@ -90,7 +89,7 @@ public class Unit
 
 	public int getTotalMovement()
 	{
-		return this.totalMovement;
+		return (this.unitStatus == UnitStatus.STEP_LOSS_TAKEN)?this.reducedTotalMovement:this.totalMovement;
 	}
 
 	public void subtractMovement(int spaces)
@@ -107,7 +106,7 @@ public class Unit
 
 	public void resetMovement()
 	{
-		this.remainingMovement = this.totalMovement;
+		this.remainingMovement = (this.unitStatus == UnitStatus.STEP_LOSS_TAKEN)?this.reducedTotalMovement:this.totalMovement;
 	}
 
 	public UnitStatus takeStepLoss()
