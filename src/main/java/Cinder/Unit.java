@@ -5,7 +5,7 @@ public class Unit
 	private int attack;
 	private int defense;
 	private int efficiancy;
-	private int stackingPoints;
+	private double stackingPoints;
 	private boolean canTakeLoss;
 	private UnitStatus unitStatus;
 	private int reducedTotalMovement;
@@ -22,7 +22,7 @@ public class Unit
 		this.unitStatus = UnitStatus.DEAD;
 	}
 
-	public Unit(String name, int attack, int defense, int movement, int efficiancy, int stackingPoints)
+	public Unit(String name, int attack, int defense, int movement, int efficiancy, double stackingPoints)
 	{
 		this.unitStatus = UnitStatus.HEALTHY;
 		this.name = name;
@@ -35,7 +35,7 @@ public class Unit
 		canTakeLoss = false;
 	}
 
-	public Unit(String name, int attack, int defense, int movement, int efficiancy, int stackingPoints, int reducedAttack, int reducedDefense, int reduced_movement, int reducedEfficiancy, int reducedStackingPoints)
+	public Unit(String name, int attack, int defense, int movement, int efficiancy, double stackingPoints, int reducedAttack, int reducedDefense, int reduced_movement, int reducedEfficiancy, int reducedStackingPoints)
 	{
 		this.unitStatus = UnitStatus.HEALTHY;
 		this.name = name;
