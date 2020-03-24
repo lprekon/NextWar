@@ -51,4 +51,13 @@ class TestUnit {
     	assertEquals(UnitStatus.HEALTHY, smallUnit.getStatus());
     	assertEquals(UnitStatus.DEAD, smallUnit.takeStepLoss());
     }
+
+    @Test
+    void testGetAttack(){
+    	assertAll("Starting stats",
+    		()->assertEquals(1, smallUnit.getAttack()),
+    		()->assertEquals(9, largeUnit.getAttack()));
+    	largeUnit.takeStepLoss();
+    	assertEquals(5, largeUnit.getAttack());
+    }
 }
