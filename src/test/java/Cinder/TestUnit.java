@@ -136,4 +136,10 @@ class TestUnit {
     	largeUnit.resetMovement();
     	assertEquals(7, largeUnit.getRemainingMovement());
     }
+
+    @Test
+    void moveEmptyUnit(){
+    	assertEquals(UnitStatus.UNDEFINED, emptyUnit.getStatus());
+    	assertThrows(UnsupportedOperationException.class, ()->emptyUnit.subtractMovement(0));
+    }
 }
