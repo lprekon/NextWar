@@ -8,9 +8,4 @@ public class BattleReport{
 	public int netColumnShift=0;
 	public UnitStack attacker;
 	public UnitStack defender;
-
-	public BattleReport(UnitStack attacker, UnitStack defender){
-		this.attacker = attacker;
-		this.defender = defender;
-	}
 }
