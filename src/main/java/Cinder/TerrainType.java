@@ -6,7 +6,7 @@ public enum TerrainType
 
 	private String name;
 
-	UnitStatus(String name)
+	TerrainType(String name)
 	{
 		this.name = name;
 	}
