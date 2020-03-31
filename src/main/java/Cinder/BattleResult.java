@@ -11,10 +11,30 @@ public class BattleResult{
 		this.redZone = redZone;
 	}
 
-	public boolean equals(BattleResult other){
-		return this.attackerStepLoss == other.attackerStepLoss &&
-			this.defenderStepLoss == other.defenderStepLoss &&
-			this.defenderRetreat == other.defenderRetreat &&
-			this.redZone == other.redZone;
+	@Override
+	public boolean equals(Object o){
+		if(!(o instanceof BattleResult))
+			return false;
+		BattleResult other = (BattleResult) o;
+		return this.attackerStepLoss == other.attackerStepLoss && this.defenderStepLoss == other.defenderStepLoss && this.defenderRetreat == other.defenderRetreat && this.redZone == other.redZone;
+	}
+
+	@Override
+	public String toString(){
+		String result = "";
+		if(attackerStepLoss!=0)
+			result += attackerStepLoss;
+		else
+			result += "-";
+		result += "/";
+		if (defenderStepLoss!=0)
+			result += defenderStepLoss;
+		else
+			result += "-";
+		if(defenderRetreat)
+			result += "R";
+		if(redZone)
+			result += " RED ZONE";
+		return "BattleResult[" + result + "]";
 	}
 }
