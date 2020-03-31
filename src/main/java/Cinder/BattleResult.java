@@ -10,4 +10,11 @@ public class BattleResult{
 		this.defenderRetreat = defenderRetreat;
 		this.redZone = redZone;
 	}
+
+	public boolean equals(BattleResult other){
+		return this.attackerStepLoss == other.attackerStepLoss &&
+			this.defenderStepLoss == other.defenderStepLoss &&
+			this.defenderRetreat == other.defenderRetreat &&
+			this.redZone == other.redZone;
+	}
 }
