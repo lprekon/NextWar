@@ -3,12 +3,23 @@ public class BattleResult{
 	public int defenderStepLoss=0;
 	public boolean defenderRetreat=false;
 	public boolean redZone = false;
+	public int CRTRow = -1;
+	public int CRTColumn = -1;
 
 	public BattleResult(int attackerStepLoss, int defenderStepLoss, boolean defenderRetreat, boolean redZone){
 		this.attackerStepLoss = attackerStepLoss;
 		this.defenderStepLoss = defenderStepLoss;
 		this.defenderRetreat = defenderRetreat;
 		this.redZone = redZone;
+	}
+
+	public BattleResult(int attackerStepLoss, int defenderStepLoss, boolean defenderRetreat, boolean redZone, int row, int column){
+		this.attackerStepLoss = attackerStepLoss;
+		this.defenderStepLoss = defenderStepLoss;
+		this.defenderRetreat = defenderRetreat;
+		this.redZone = redZone;
+		this.CRTRow = row;
+		this.CRTColumn = column
 	}
 
 	@Override
@@ -35,6 +46,6 @@ public class BattleResult{
 			result += "R";
 		if(redZone)
 			result += " RED ZONE";
-		return "BattleResult[" + result + "]";
+		return "BattleResult[" + (String)row + "][" + (String)column + "]("+ result + ")";
 	}
 }

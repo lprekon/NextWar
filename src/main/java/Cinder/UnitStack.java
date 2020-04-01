@@ -12,6 +12,8 @@ public class UnitStack{
 
 	public BattleReport attack(UnitStack defender, Supplier<Integer> die){
 		double powerRatio = getAttackPower()/defender.getDefensePower();
+
+		return null;
 	}
 
 	public int getAttackPower(){
@@ -30,23 +32,23 @@ public class UnitStack{
 		return p;
 	}
 
-	private static class CombatResultsTable{
+	static class CombatResultsTable{
 		private static HashMap<Double, Integer> oddsForUrban;
 		static{
 			oddsForUrban = new HashMap<Double, Integer>();
-			oddsForUrban.put(1.0/3, 1);
-			oddsForUrban.put(1.0/2, 2);
-			oddsForUrban.put(1.0, 3);
-			oddsForUrban.put(1.5, 4);
-			oddsForUrban.put(2.0, 5);
-			oddsForUrban.put(3.0, 6);
-			oddsForUrban.put(4.0, 7);
-			oddsForUrban.put(5.0, 8);
-			oddsForUrban.put(6.0, 9);
-			oddsForUrban.put(7.0, 10);
-			oddsForUrban.put(8.0, 11);
-			oddsForUrban.put(9.0, 12);
-			oddsForUrban.put(10.0, 13);
+			oddsForUrban.put(1.0/3, 0);
+			oddsForUrban.put(1.0/2, 1);
+			oddsForUrban.put(1.0, 2);
+			oddsForUrban.put(1.5, 3);
+			oddsForUrban.put(2.0, 4);
+			oddsForUrban.put(3.0, 5);
+			oddsForUrban.put(4.0, 6);
+			oddsForUrban.put(5.0, 7);
+			oddsForUrban.put(6.0, 8);
+			oddsForUrban.put(7.0, 9);
+			oddsForUrban.put(8.0, 10);
+			oddsForUrban.put(9.0, 11);
+			oddsForUrban.put(10.0, 12);
 		}
 		//private static int[][]crt = {{new BattleResult(1, 1, true, false), new BattleResult(1, 1, true, false), new BattleResult(0, 1, true, false), new BattleResult(0, 1, true, false), new BattleResult(0, 2, true, false), new BattleResult(0, 2, true, false), new BattleResult(0, 2, true, false), new BattleResult(0, 3, true, false),},}
 		private static int [][][] crt ={{{1, 1}, {1, 1}, {0, 1}, {0, 1}, {0, 2}, {0, 2}, {0, 2}, {0, 3}, {0, 3}, {0, 3}, {0, 4}, {0, 4}, {0, 4}},
@@ -66,7 +68,19 @@ public class UnitStack{
 										{{4, 0}, {2, 1}, {3, 0}, {2, 1}, {3, 1}, {2, 0}, {2, 1}, {2, 0}, {2, 1}, {2, 1}, {1, 0}, {1, 1}, {1, 0}},
 										{{4, 0}, {4, 0}, {4, 0}, {2, 0}, {3, 0}, {3, 1}, {2, 0}, {2, 1}, {3, 1}, {1, 0}, {2, 1}, {2, 1}, {2, 1}}};
 
-		public static BattleReport getResult(double powerRatio, TerrainType tType, int diceRollModifier, int columnShift, int initialRoll){
+		/* params:
+		* powerRatio - the attackers power divided by the defenders power
+		* tType - the terrain type of the defenders tile
+		* modifiedRoll - die roll plus all modifiers *except* a possible -1 resulting from rounding the power ratio
+		* columnShift - net column shift resulting from efficiancy, artillery, etc.
+		* return: BattleResult object detailing step-losses for each side, and whether or not the defender retreats
+		*/
+		public static BattleResult getResult(double powerRatio, TerrainType tType, int modifiedRoll, int columnShift){
+			modifiedRoll += 3; //actual CRT starts at -3
+
+			modifiedRoll = Math.max(modifiedRoll, 0); //if roll still under min, raise to min
+			modifiedRoll = Math.min(modifiedRoll, 15); // if roll over max, lower to max
+
 			double maxOdds = 0;
 				switch (tType){
 					case URBAN: maxOdds = 10.0;
@@ -89,34 +103,34 @@ public class UnitStack{
 			{
 				if(powerRatio > 1/3)
 				{
-					diceRollModifier += 1;
+					modifiedRoll -= 1;
 				}
 				powerRatio = 1/3;
 			}
-			else if (powerRatio < 1)
+			else if (powerRatio < 1 && powerRatio != 1/2)
 			{
 				powerRatio = 1/2;
-				diceRollModifier += 1;
+				modifiedRoll -= 1;
 			}
-			else if (powerRatio < 1.5)
+			else if (powerRatio < 1.5 && powerRatio != 1)
 			{
 				powerRatio = 1;
-				diceRollModifier += 1;
+				modifiedRoll -= 1;
 			}
-			else if (powerRatio < 2)
+			else if (powerRatio < 2 && powerRatio != 1.5)
 			{
 				powerRatio = 1.5;
-				diceRollModifier += 1;
+				modifiedRoll -= 1;
 			}
 			else if (powerRatio > maxOdds)
 			{
 				powerRatio = maxOdds;
-				diceRollModifier += 1;
+				modifiedRoll -= 1;
 			}
 			else if (powerRatio != Math.floor(powerRatio))
 			{
 				powerRatio = Math.floor(powerRatio);
-				diceRollModifier += 1;
+				modifiedRoll -= 1;
 			}
 
 			int column = oddsForUrban.get(powerRatio);
@@ -132,6 +146,11 @@ public class UnitStack{
 				case MOUNTAIN: column += 1;
 				case URBAN: break;
 			}
+			int shiftedColumn = column + columnShift;
+			int[] results = crt[modifiedRoll][shiftedColumn];
+			boolean retreat = modifiedRoll <= shiftedColumn;
+			boolean redZone = shiftedColumn >= 10;
+			return new BattleResult(results[0], results[1], retreat, redZone, modifiedRoll, shiftedColumn);
 		}
 	}
 }
