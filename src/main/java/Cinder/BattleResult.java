@@ -19,7 +19,7 @@ public class BattleResult{
 		this.defenderRetreat = defenderRetreat;
 		this.redZone = redZone;
 		this.CRTRow = row;
-		this.CRTColumn = column
+		this.CRTColumn = column;
 	}
 
 	@Override
@@ -46,6 +46,6 @@ public class BattleResult{
 			result += "R";
 		if(redZone)
 			result += " RED ZONE";
-		return "BattleResult[" + (String)row + "][" + (String)column + "]("+ result + ")";
+		return "BattleResult[" + CRTRow + "][" + CRTColumn + "]("+ result + ")";
 	}
 }
