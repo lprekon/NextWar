@@ -112,12 +112,12 @@ public class UnitStack{
 				powerRatio = 1/2;
 				modifiedRoll -= 1;
 			}
-			else if (powerRatio < 1.5 && powerRatio != 1)
+			else if (powerRatio < 1.5 && powerRatio > 1.0)
 			{
 				powerRatio = 1;
 				modifiedRoll -= 1;
 			}
-			else if (powerRatio < 2 && powerRatio != 1.5)
+			else if (powerRatio < 2.0 && powerRatio > 1.5)
 			{
 				powerRatio = 1.5;
 				modifiedRoll -= 1;
