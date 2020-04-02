@@ -46,18 +46,18 @@ public class TestUnitStack{
 
 	@Test
 	void columnShift(){
-		assertEquals(new BattleResult(0, 1, true, false, 3, 6), UnitStack.CombatResultsTable.getResult(1.0, TerrainType.FLAT, 0, 0));
-		assertAll(()->assertEquals(new BattleResult(1, 2, true, false, 3, 7), UnitStack.CombatResultsTable.getResult(1.0, TerrainType.FLAT, 0, 1)),
-			()->assertEquals(new BattleResult(0, 1, true, false, 3, 5), UnitStack.CombatResultsTable.getResult(1.0, TerrainType.FLAT, 0, -1)));
+		assertEquals(new BattleResult(0, 1, true, false, 3, 6), UnitStack.CombatResultsTable.getResult(1.0, TerrainType.FLAT, 0, 0), "Start");
+		assertAll(()->assertEquals(new BattleResult(1, 2, true, false, 3, 7), UnitStack.CombatResultsTable.getResult(1.0, TerrainType.FLAT, 0, 1), "Column +"),
+			()->assertEquals(new BattleResult(0, 1, true, false, 3, 5), UnitStack.CombatResultsTable.getResult(1.0, TerrainType.FLAT, 0, -1), "Column -"));
 	}
 
 	@Test
 	void fullFlat(){
-		assertAll(()->assertEquals(new BattleResult(0, 1, true, false, 3, 6), UnitStack.CombatResultsTable.getResult(1.0, TerrainType.FLAT, 0, 0)),
-			()->assertEquals(new BattleResult(1, 1, true, false, 5, 6), UnitStack.CombatResultsTable.getResult(1.0, TerrainType.FLAT, 2, 0)),
-			()->assertEquals(new BattleResult(0, 2, true, false, 1, 6), UnitStack.CombatResultsTable.getResult(1.0, TerrainType.FLAT, -2, 0)),
-			()->assertEquals(new BattleResult(1, 2, true, false, 3, 7), UnitStack.CombatResultsTable.getResult(1.0, TerrainType.FLAT, 0, 1)),
-			()->assertEquals(new BattleResult(1, 1, true, false, 3, 4), UnitStack.CombatResultsTable.getResult(1.0, TerrainType.FLAT, 0, -2)));
+		assertAll(()->assertEquals(new BattleResult(0, 1, true, false, 3, 6), UnitStack.CombatResultsTable.getResult(1.0, TerrainType.FLAT, 0, 0), "Start"),
+			()->assertEquals(new BattleResult(1, 1, true, false, 5, 6), UnitStack.CombatResultsTable.getResult(1.0, TerrainType.FLAT, 2, 0), "DRM +"),
+			()->assertEquals(new BattleResult(0, 2, true, false, 1, 6), UnitStack.CombatResultsTable.getResult(1.0, TerrainType.FLAT, -2, 0), "DRM -"),
+			()->assertEquals(new BattleResult(1, 2, true, false, 3, 7), UnitStack.CombatResultsTable.getResult(1.0, TerrainType.FLAT, 0, 1), "Column +"),
+			()->assertEquals(new BattleResult(1, 1, true, false, 3, 4), UnitStack.CombatResultsTable.getResult(1.0, TerrainType.FLAT, 0, -2), "Column -"));
 	}
 
 	@Test
